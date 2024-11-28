@@ -4,6 +4,9 @@
 Если необходимо перейти в поддиректорию, напишите соотвесвтующую команду
 
 ## 1. FastAPI микросервис в виртуальном окружение
+
+Чтобы запустить микросервис необходимо по порядку выполнить следующие команды:
+
 ```python
 # команды создания виртуального окружения
 # и установки необходимых библиотек в него
@@ -23,7 +26,7 @@ uvicorn app:app --reload --port 8081 --host 0.0.0.0
 
 ```bash
 curl -X 'POST' \
-  'http://localhost:8081/api/flat/?flat_id=123' \
+  'http://localhost:8081/api/flat/?flat_id=123459' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -51,16 +54,41 @@ curl -X 'POST' \
 
 ```bash
 # команда перехода в нужную директорию
-
+cd mle-project-sprint-3-v001/services
+source .project3-venv/bin/activate
 
 # команда для запуска микросервиса в режиме docker compose
+docker image build . --file Dockerfile_ml_service --tag fastapi
+docker container run --publish 8081:8081 --env-file .env --volume=./models:/models fastapi
+
 ```
 
 ### Пример curl-запроса к микросервису
 
 ```bash
 curl -X 'POST' \
-  'http://localhost:...' \
+  'http://localhost:8081/api/flat/?flat_id=1239' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "building_id": 2024,
+  "floor": 9,
+  "kitchen_area": 6,
+  "living_area": 40,
+  "rooms": 2,
+  "is_apartment": false,
+  "studio": false,
+  "total_area": 60,
+  "build_year": 1987,
+  "building_type_int": 3,
+  "latitude": 55.1,
+  "longitude": 37.1,
+  "ceiling_height": 2.5,
+  "flats_count": 240,
+  "floors_total": 9,
+  "has_elevator": false,
+  "new_building": false
+}'
 ```
 
 ## 3. Docker compose для микросервиса и системы моониторинга

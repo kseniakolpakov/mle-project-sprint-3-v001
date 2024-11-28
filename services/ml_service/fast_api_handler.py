@@ -3,7 +3,7 @@
 
 import joblib
 import pandas as pd
-import numpy as np
+import os
 
 class FastApiHandler:
     """Класс FastApiHandler, который обрабатывает запрос и возвращает предсказание."""
@@ -15,7 +15,8 @@ class FastApiHandler:
             'model_params': dict
         }
 
-        self.model_path = '/home/mle-user/mle-project-sprint-3-v001/services/models/final_pipeline.pkl'
+
+        self.model_path = './models/final_pipeline.pkl'
         self.load_pipeline(model_path=self.model_path)
         
         self.required_model_params = ['building_id', 'floor', 'kitchen_area', 'living_area', 'rooms',
@@ -102,12 +103,3 @@ class FastApiHandler:
         else:
             return response
 
-# if __name__ == "__main__":
-
-
-#     # Создаем обработчик запросов для API
-#     handler = FastApiHandler()
-
-#     # Делаем тестовый запрос
-#     response = handler.handle(test_params)
-#     print(f"Response: {response}")
