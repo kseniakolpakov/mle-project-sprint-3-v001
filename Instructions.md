@@ -95,27 +95,21 @@ curl -X 'POST' \
 
 ```bash
 # команда перехода в нужную директорию
-
+cd mle-project-sprint-3-v001/services
 # команда для запуска микросервиса в режиме docker compose
-
-```
-
-### Пример curl-запроса к микросервису
-
-```bash
-curl -X 'POST' \
-  'http://localhost:
+docker compose up --build
 ```
 
 ## 4. Скрипт симуляции нагрузки
-Скрипт генерирует <...> запросов в течение <...> секунд ...
 
-```
 # команды необходимые для запуска скрипта
-...
+```
+chmod +x load_tests.sh
+./load_tests.sh
 ```
 
+Для доступа к сервисам необходимо перенаправить порты 9090 и 3000
 Адреса сервисов:
-- микросервис: http://localhost:<port>
-- Prometheus: ...
-- Grafana: ...
+- микросервис: http://localhost:8081/
+- Prometheus: http://localhost:9090/metrics
+- Grafana: http://localhost:3000/

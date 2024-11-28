@@ -1,4 +1,4 @@
-{
+  {
     "annotations": {
       "list": [
         {
@@ -18,13 +18,13 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 2,
+    "id": 1,
     "links": [],
     "panels": [
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "cdpaidmlnery8c"
+          "uid": "ae5c1vpcpdtkwd"
         },
         "fieldConfig": {
           "defaults": {
@@ -38,6 +38,7 @@
               "axisLabel": "",
               "axisPlacement": "auto",
               "barAlignment": 0,
+              "barWidthFactor": 0.6,
               "drawStyle": "line",
               "fillOpacity": 0,
               "gradientMode": "none",
@@ -95,25 +96,23 @@
             "showLegend": true
           },
           "tooltip": {
-            "maxHeight": 600,
             "mode": "single",
             "sort": "none"
           }
         },
+        "pluginVersion": "11.3.0+security-01",
         "targets": [
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "cdpaidmlnery8c"
+              "uid": "ae5c1vpcpdtkwd"
             },
             "disableTextWrap": false,
             "editorMode": "builder",
-            "expr": "http_requests_total{handler=\"/api/predict/\"}",
+            "expr": "http_request_duration_seconds_count",
             "fullMetaSearch": false,
             "includeNullMetadata": true,
-            "instant": false,
-            "interval": "",
-            "legendFormat": "{{handler}}",
+            "legendFormat": "__auto",
             "range": true,
             "refId": "A",
             "useBackend": false
@@ -121,22 +120,90 @@
         ],
         "title": "Количество запросов",
         "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "ae5c1vpcpdtkwd"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "decbits"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "minVizHeight": 75,
+          "minVizWidth": 75,
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "sizing": "auto",
+          "text": {}
+        },
+        "pluginVersion": "11.3.0+security-01",
+        "targets": [
+          {
+            "disableTextWrap": false,
+            "editorMode": "builder",
+            "expr": "process_virtual_memory_bytes",
+            "fullMetaSearch": false,
+            "includeNullMetadata": true,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A",
+            "useBackend": false
+          }
+        ],
+        "title": "Потребление RAM",
+        "type": "gauge"
       }
     ],
-    "schemaVersion": 39,
+    "preload": false,
+    "schemaVersion": 40,
     "tags": [],
     "templating": {
       "list": []
     },
     "time": {
-      "from": "now-6h",
+      "from": "now-3h",
       "to": "now"
     },
-    "timeRangeUpdatedDuringEditOrView": false,
     "timepicker": {},
     "timezone": "browser",
-    "title": "Template",
-    "uid": "edpawont71fk0c",
-    "version": 1,
+    "title": "Final project dash",
+    "uid": "fe5c20j049mv4e",
+    "version": 10,
     "weekStart": ""
   }
