@@ -14,7 +14,6 @@ cd mle-project-sprint-3-v001/services
 source .project3-venv/bin/activate
 pip install -r requirements.txt
 
-
 # команда перехода в директорию
 cd ml_service
 
@@ -48,6 +47,11 @@ curl -X 'POST' \
   "has_elevator": true,
   "new_building": true
 }'
+```
+
+Чтобы запустить тесты нужно ввести команду:
+``` 
+pytest test_fastapi_handler.py
 ```
 
 ## 2. FastAPI микросервис в Docker-контейнере

@@ -16,7 +16,7 @@ class FastApiHandler:
         }
 
 
-        self.model_path = '/home/mle-user/mle-project-sprint-3-v001/services/models/final_pipeline.pkl'
+        self.model_path = '../models/final_pipeline.pkl'
         self.load_pipeline(model_path=self.model_path)
         
         self.required_model_params = ['building_id', 'floor', 'kitchen_area', 'living_area', 'rooms',
