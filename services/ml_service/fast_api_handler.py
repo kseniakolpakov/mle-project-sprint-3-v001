@@ -16,13 +16,17 @@ class FastApiHandler:
         }
 
 
-        self.model_path = './models/final_pipeline.pkl'
+        self.model_path = '/home/mle-user/mle-project-sprint-3-v001/services/models/final_pipeline.pkl'
         self.load_pipeline(model_path=self.model_path)
         
         self.required_model_params = ['building_id', 'floor', 'kitchen_area', 'living_area', 'rooms',
                                       'is_apartment', 'studio', 'total_area', 'build_year',
                                       'building_type_int', 'latitude', 'longitude', 'ceiling_height',
                                       'flats_count', 'floors_total', 'has_elevator', 'new_building']
+        
+        if self.model is None:  
+            raise RuntimeError("Model could not be loaded. Application will not start.")
+
 
 
     def load_pipeline(self, model_path: str):
@@ -32,12 +36,22 @@ class FastApiHandler:
         
         except Exception as e:
             print(f"Failed to load model: {e}")
+            self.model = None
 
     def predict_flat_price(self, model_params: dict) -> float:
-        
-        param_values_list = list(model_params.values())
-        df = pd.DataFrame([param_values_list], columns=self.required_model_params)
-        return self.model.predict(df)[0]
+        try:
+            param_values_list = list(model_params.values())
+            df = pd.DataFrame([param_values_list], columns=self.required_model_params)
+            prediction = self.model.predict(df)[0]
+            return prediction
+    
+        except KeyError as ke:
+            print(f"Missing or incorrect model parameters: {ke}")
+            raise ValueError("Invalid input data for prediction.") from ke
+    
+        except Exception as e:
+            print(f"Error during prediction: {e}")
+            raise RuntimeError("Prediction failed due to an internal error.") from e
        
         
     def check_required_query_params(self, query_params: dict) -> bool:
